@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Test.Models;
 using Test.Services;
@@ -24,7 +25,7 @@ namespace Test.Controllers
         [HttpPost]
         public async Task<ActionResult> StreamFile(IFormFile file)
         {
-            var contents = await _fileReader.Read(file);
+            var contents = (await _fileReader.Read(file)).ToList();
             return Ok(contents);
         }
 

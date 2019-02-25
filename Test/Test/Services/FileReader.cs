@@ -10,11 +10,12 @@ namespace Test.Services
         public async Task<IEnumerable<string>> Read(IFormFile file)
         {
             var contents = new List<string>();
-            using (var streamReader = File.OpenText(Path.GetTempFileName()))
+            using (var streamReader = new StreamReader(file.OpenReadStream()))
             {
                 while (!streamReader.EndOfStream)
                 {
-                    contents.Add(await streamReader.ReadLineAsync());
+                    var line = await streamReader.ReadLineAsync();
+                    contents.Add(line);
                 }
             }
 
