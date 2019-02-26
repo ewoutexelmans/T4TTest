@@ -33,6 +33,7 @@ namespace Test
             services.AddScoped<IFileReader, FileReader>();
             services.AddScoped<ITalkParser, TalkParser>();
             services.AddScoped<ICalculateTracks, CalculateTracks>();
+            services.AddScoped<ITrackFiller, TrackFiller>();
 
         }
 
