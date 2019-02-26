@@ -30,7 +30,7 @@ namespace Test.Services
             return StringToTalk(talkString);
         }
 
-        public List<Talk> ParseStrings(List<string> talkStrings)
+        public IEnumerable<Talk> ParseStrings(List<string> talkStrings)
         {
             var talks = new List<Talk>();
             foreach (var talkString in talkStrings)

@@ -8,6 +8,6 @@ namespace Test.Services
         bool CanParse(List<string> talkStrings);
         bool CanParse(string talkString);
         Talk ParseString(string talkString);
-        List<Talk> ParseStrings(List<string> talkStrings);
+        IEnumerable<Talk> ParseStrings(List<string> talkStrings);
     }
 }
