@@ -36,15 +36,19 @@ namespace Test.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> StreamFile(IFormFile file)
+        public async Task<ActionResult> UploadFile(IFormFile file)
         {
+            if (file.Length == 0) return BadRequest("Empty file");
+
             var contents = (await _reader.Read(file)).ToList();
+
             if (!_parser.CanParse(contents)) return BadRequest("Contents of file do not match format");
+
             var talks = _parser.ParseStrings(contents).ToList();
             var trackAmount = _calculator.Calculate(talks, _morningTime, _afternoonTimeMax);
             var tracks = _filler.Fill(trackAmount, talks, _morningTime, _afternoonTimeMin, _afternoonTimeMax);
 
-            return Ok(tracks);
+            return View(tracks);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

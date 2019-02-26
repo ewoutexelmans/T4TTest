@@ -1,0 +1,26 @@
+﻿@using System.Globalization
+@model IEnumerable<Track>
+@{
+    ViewData["Title"] = "Tracks";
+}
+@{ var i = 1; }
+@foreach (var track in Model)
+{
+    var time = DateTime.Parse("09:00");
+
+    <p>Track @i:</p>
+    foreach (var talk in track.MorningTalks)
+    {
+        <p>@time.ToString("hh:mm tt", CultureInfo.InvariantCulture) @talk.Title</p>
+        time = time.AddMinutes(talk.Length);
+    }
+    <p>@time.ToString("hh:mm tt", CultureInfo.InvariantCulture) Lunch</p>
+    time = DateTime.Parse("13:00");
+    foreach (var talk in track.AfternoonTalks)
+    {
+        <p>@time.ToString("hh:mm tt", CultureInfo.InvariantCulture) @talk.Title</p>
+        time = time.AddMinutes(talk.Length);
+    }
+    <p>@time.ToString("hh:mm tt", CultureInfo.InvariantCulture) Networking Event</p>
+    i++;
+}
