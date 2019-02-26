@@ -12,11 +12,17 @@ namespace Test.Controllers
     {
         private readonly IFileReader _reader;
         private readonly ITalkParser _parser;
+        private readonly ICalculateTracks _calculator;
+        private readonly int _morningTime;
+        private readonly int _afternoonTime;
 
-        public HomeController(IFileReader reader, ITalkParser parser)
+        public HomeController(IFileReader reader, ITalkParser parser, ICalculateTracks calculator)
         {
             _reader = reader;
             _parser = parser;
+            _calculator = calculator;
+            _morningTime = 180;
+            _afternoonTime = 240;
         }
 
         public IActionResult Index()
@@ -30,7 +36,9 @@ namespace Test.Controllers
             var contents = (await _reader.Read(file)).ToList();
             if (!_parser.CanParse(contents)) return BadRequest("Contents of file do not match format");
             var talks = _parser.ParseStrings(contents);
-            return Ok(talks);
+            var trackAmount = _calculator.Calculate(talks, _morningTime, _afternoonTime);
+
+            return Ok(trackAmount);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

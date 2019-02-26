@@ -7,7 +7,7 @@ namespace Test.Services
 {
     public class CalculateTracks : ICalculateTracks
     {
-        public int Calculate(List<Talk> talks, int morningTime, int afternoonTime)
+        public int Calculate(IEnumerable<Talk> talks, int morningTime, int afternoonTime)
         {
             var sumTalks = talks.Select(t => t.Length).Sum();
             var sumTrackTime = morningTime + afternoonTime;

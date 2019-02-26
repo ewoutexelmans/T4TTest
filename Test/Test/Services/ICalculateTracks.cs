@@ -5,6 +5,6 @@ namespace Test.Services
 {
     public interface ICalculateTracks
     {
-        int Calculate(List<Talk> talks, int morningTime, int afternoonTime);
+        int Calculate(IEnumerable<Talk> talks, int morningTime, int afternoonTime);
     }
 }

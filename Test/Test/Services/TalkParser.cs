@@ -11,18 +11,10 @@ namespace Test.Services
             return CheckString(talkString);
         }
 
-        public bool CanParse(List<string> talkStrings)
+        public bool CanParse(IEnumerable<string> talkStrings)
         {
-            if (!talkStrings.Any()) return false;
-            foreach (var talkString in talkStrings)
-            {
-                var isParseable = CheckString(talkString);
-                if (!isParseable)
-                {
-                    return false;
-                }
-            }
-            return true;
+            var list = talkStrings.ToList();
+            return list.Any() && list.Select(CheckString).All(b => b);
         }
 
         public Talk ParseString(string talkString)
@@ -30,19 +22,9 @@ namespace Test.Services
             return StringToTalk(talkString);
         }
 
-        public IEnumerable<Talk> ParseStrings(List<string> talkStrings)
+        public IEnumerable<Talk> ParseStrings(IEnumerable<string> talkStrings)
         {
-            var talks = new List<Talk>();
-            foreach (var talkString in talkStrings)
-            {
-                var talk = StringToTalk(talkString);
-                if (talk != null)
-                {
-                    talks.Add(talk);
-                }
-            }
-
-            return talks;
+            return talkStrings.Select(StringToTalk).Where(talk => talk != null).ToList();
         }
 
         private static bool CheckString(string talkString)
@@ -72,7 +54,9 @@ namespace Test.Services
             {
                 return new Talk { Title = talkString, Length = 5 };
             }
+
             return null;
+
         }
     }
 }

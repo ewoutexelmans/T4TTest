@@ -5,9 +5,9 @@ namespace Test.Services
 {
     public interface ITalkParser
     {
-        bool CanParse(List<string> talkStrings);
+        bool CanParse(IEnumerable<string> talkStrings);
         bool CanParse(string talkString);
         Talk ParseString(string talkString);
-        IEnumerable<Talk> ParseStrings(List<string> talkStrings);
+        IEnumerable<Talk> ParseStrings(IEnumerable<string> talkStrings);
     }
 }
