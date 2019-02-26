@@ -31,6 +31,7 @@ namespace Test
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IFileReader, FileReader>();
+            services.AddScoped<ITalkParser, TalkParser>();
 
         }
 
